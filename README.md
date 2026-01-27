@@ -1,8 +1,10 @@
 # Linaark Architects Portfolio
+![Status](https://img.shields.io/badge/Status-Live-brightgreen) ![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
+<img width="1845" height="971" alt="image" src="https://github.com/user-attachments/assets/17ff4610-fa47-44a4-8c6d-387e1dc0fb79" />
 
 A stunning, modern portfolio website for an architecture firm featuring premium animations, light/dark theme toggle, and responsive design.
 
-![Status](https://img.shields.io/badge/Status-Live-brightgreen) ![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
+
 
 ## Features
 
