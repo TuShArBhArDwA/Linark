@@ -584,7 +584,7 @@
                     </div>
                 </div>
                 <div class="contact-form-wrapper">
-                    <form class="contact-form" id="contactForm">
+                    <form class="contact-form" id="contactForm" novalidate>
                         <div class="form-group">
                             <input type="text" id="name" name="name" required>
                             <label for="name">Your Name</label>
@@ -612,6 +612,19 @@
                             </svg>
                         </button>
                     </form>
+
+                    <!-- Success Screen -->
+                    <div class="contact-success-screen" style="display: none;">
+                        <div class="success-icon">
+                            <svg viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" class="circle" />
+                                <path d="M30 50 L45 65 L70 35" class="check" />
+                            </svg>
+                        </div>
+                        <h2>Message Sent!</h2>
+                        <p>Thank you for reaching out. We will be in touch with you shortly.</p>
+                        <button class="btn btn-secondary btn-send-again">Send Another Message</button>
+                    </div>
                 </div>
             </div>
         </div>

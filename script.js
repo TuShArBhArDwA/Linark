@@ -323,13 +323,68 @@ function initProjectFilter() {
 
 function initContactForm() {
     const form = document.getElementById('contactForm');
-
     if (!form) return;
 
     const inputs = form.querySelectorAll('input, textarea');
+    const successScreen = document.querySelector('.contact-success-screen');
+
+    // Create Toast Container
+    const toastContainer = document.createElement('div');
+    toastContainer.className = 'toast-container';
+    document.body.appendChild(toastContainer);
+
+    function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+        
+        const icon = type === 'success' 
+            ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`
+            : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>`;
+            
+        toast.innerHTML = `
+            ${icon}
+            <span>${message}</span>
+        `;
+        
+        toastContainer.appendChild(toast);
+        
+        // Trigger animation
+        setTimeout(() => toast.classList.add('show'), 10);
+        
+        // Remove toast after 4 seconds
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 400);
+        }, 4000);
+    }
 
     form.addEventListener('submit', (e) => {
         e.preventDefault();
+
+        // Perform custom validation
+        let isValid = true;
+        let nameVal = '';
+        inputs.forEach(input => {
+            if (input.hasAttribute('required') && !input.value.trim()) {
+                input.classList.add('invalid');
+                isValid = false;
+                
+                // Remove invalid class on input
+                input.addEventListener('input', () => {
+                    input.classList.remove('invalid');
+                }, { once: true });
+            } else {
+                input.classList.remove('invalid');
+            }
+            if (input.name === 'name') {
+                nameVal = input.value.trim();
+            }
+        });
+
+        if (!isValid) {
+            showToast("Please fill out all the required fields.", "error");
+            return;
+        }
 
         const submitBtn = form.querySelector('.btn-submit');
         const originalText = submitBtn.innerHTML;
@@ -363,43 +418,84 @@ function initContactForm() {
         .then(async (response) => {
             const res = await response.json();
             if (response.status === 200) {
-                // Success state
-                submitBtn.innerHTML = `
-                    <span>Message Sent!</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M20 6L9 17l-5-5"/>
-                    </svg>
-                `;
-                submitBtn.style.background = 'linear-gradient(135deg, #4CAF50 0%, #45a049 100%)';
-                form.reset();
+                // Success state transition
+                form.style.transition = 'opacity 0.4s ease';
+                form.style.opacity = '0';
                 
-                // Clear active floating labels classes
-                inputs.forEach(input => input.classList.remove('has-value'));
+                setTimeout(() => {
+                    form.style.display = 'none';
+                    if (successScreen) {
+                        // Personalize success message
+                        const successText = successScreen.querySelector('p');
+                        if (successText && nameVal) {
+                            successText.textContent = `Thank you for reaching out, ${nameVal}! We will get in touch with you shortly.`;
+                        }
+                        successScreen.style.display = 'flex';
+                    }
+                    showToast("Message sent successfully!", "success");
+                }, 400);
             } else {
                 // Server error state
                 console.error(res);
-                submitBtn.innerHTML = `<span>Error! Try Again</span>`;
-                submitBtn.style.background = 'linear-gradient(135deg, #f44336 0%, #d32f2f 100%)';
+                showToast("Something went wrong. Please try again.", "error");
+                resetSubmitButton();
             }
         })
         .catch(error => {
             // Network error state
             console.error(error);
-            submitBtn.innerHTML = `<span>Error! Try Again</span>`;
-            submitBtn.style.background = 'linear-gradient(135deg, #f44336 0%, #d32f2f 100%)';
-        })
-        .then(() => {
-            // Restore button state after 3 seconds
-            setTimeout(() => {
-                submitBtn.innerHTML = originalText;
-                submitBtn.style.background = '';
-                submitBtn.disabled = false;
-            }, 3000);
+            showToast("Failed to send message. Please check your connection.", "error");
+            resetSubmitButton();
         });
+
+        function resetSubmitButton() {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }
     });
+
+    // Handle send again button click
+    const sendAgainBtn = document.querySelector('.btn-send-again');
+    if (sendAgainBtn && successScreen) {
+        sendAgainBtn.addEventListener('click', () => {
+            successScreen.style.transition = 'opacity 0.4s ease';
+            successScreen.style.opacity = '0';
+            
+            setTimeout(() => {
+                successScreen.style.display = 'none';
+                successScreen.style.opacity = ''; // reset opacity style
+                
+                // Reset form fields
+                form.reset();
+                inputs.forEach(input => input.classList.remove('has-value', 'invalid'));
+                
+                // Restore submit button to normal
+                const submitBtn = form.querySelector('.btn-submit');
+                submitBtn.innerHTML = `
+                    <span>Send Message</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+                    </svg>
+                `;
+                submitBtn.disabled = false;
+                submitBtn.style.background = '';
+                
+                // Show form again
+                form.style.display = 'flex';
+                form.style.opacity = '0';
+                setTimeout(() => {
+                    form.style.opacity = '1';
+                }, 50);
+            }, 400);
+        });
+    }
 
     // Floating label animation for inputs
     inputs.forEach(input => {
+        // Run on load to capture preset/autofilled values
+        if (input.value) {
+            input.classList.add('has-value');
+        }
         input.addEventListener('blur', () => {
             if (input.value) {
                 input.classList.add('has-value');
