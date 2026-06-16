@@ -230,8 +230,9 @@ em {
 }
 
 .navbar.scrolled {
-    background: rgba(10, 10, 10, 0.95);
+    background: rgba(10, 10, 10, 0.7);
     backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     padding: 15px 0;
     border-bottom: 1px solid var(--border-color);
 }
@@ -1329,6 +1330,8 @@ em {
     transition: all var(--transition-smooth);
     position: relative;
     overflow: hidden;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
 .service-card::before {
@@ -1594,6 +1597,8 @@ em {
     text-align: center;
     transition: all var(--transition-smooth);
     position: relative;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
 .team-card.featured {
@@ -2710,4 +2715,108 @@ em {
     font-size: 0.9rem;
     padding: 12px 25px;
     border-radius: 25px;
+}
+
+/* ==========================================
+   PREMIUM ACCENTS & MICRO-ANIMATIONS
+   ========================================== */
+
+/* Premium Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #252525;
+    border-radius: 20px;
+    border: 2px solid var(--bg-primary);
+    transition: background var(--transition-fast);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-primary);
+}
+
+/* Custom Text Highlight Selection */
+::selection {
+    background-color: var(--accent-primary);
+    color: var(--bg-primary);
+}
+
+/* Ambient Background Glow Orbs */
+.ambient-glows {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(140px);
+    -webkit-filter: blur(140px);
+    opacity: 0.15;
+    mix-blend-mode: screen;
+    animation: floatOrb 25s ease-in-out infinite alternate;
+}
+
+/* Adjust opacity for light theme to look clean and premium */
+[data-theme="light"] .glow-orb {
+    opacity: 0.08;
+    mix-blend-mode: multiply;
+    filter: blur(120px);
+    -webkit-filter: blur(120px);
+}
+
+.glow-orb-1 {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, var(--accent-primary) 0%, transparent 70%);
+    top: -10%;
+    left: -10%;
+    animation-duration: 22s;
+}
+
+.glow-orb-2 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, var(--accent-secondary) 0%, transparent 70%);
+    bottom: 10%;
+    right: -5%;
+    animation-duration: 28s;
+    animation-delay: -5s;
+}
+
+.glow-orb-3 {
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, var(--accent-primary) 0%, transparent 70%);
+    top: 50%;
+    left: 40%;
+    animation-duration: 25s;
+    animation-delay: -10s;
+}
+
+@keyframes floatOrb {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+    33% {
+        transform: translate(50px, -60px) scale(1.1);
+    }
+    66% {
+        transform: translate(-30px, 40px) scale(0.95);
+    }
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
 }
