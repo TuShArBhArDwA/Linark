@@ -1317,7 +1317,7 @@ em {
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 30px;
 }
 
@@ -1325,7 +1325,7 @@ em {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: 20px;
-    padding: 40px;
+    padding: 30px 20px;
     transition: all var(--transition-smooth);
     position: relative;
     overflow: hidden;
@@ -1669,7 +1669,7 @@ em {
     font-family: var(--font-heading);
     font-size: 1.4rem;
     font-weight: 500;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
 }
 
 .team-role {
@@ -1861,62 +1861,6 @@ em {
     margin-top: 10px;
     border: none;
     font-family: var(--font-body);
-}
-
-/* ==========================================
-   CTA SECTION
-   ========================================== */
-
-.cta-section {
-    padding: 100px 0;
-    background: var(--bg-primary);
-    position: relative;
-    overflow: hidden;
-}
-
-.cta-content {
-    text-align: center;
-    position: relative;
-    z-index: 1;
-}
-
-.cta-content h2 {
-    font-family: var(--font-heading);
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 400;
-    margin-bottom: 15px;
-}
-
-.cta-content p {
-    font-size: 1.1rem;
-    color: var(--text-secondary);
-    margin-bottom: 40px;
-}
-
-.cta-shapes {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-}
-
-.cta-shape {
-    position: absolute;
-    border: 1px solid rgba(201, 169, 98, 0.15);
-    border-radius: 50%;
-}
-
-.cta-shape-1 {
-    width: 400px;
-    height: 400px;
-    top: -200px;
-    left: -100px;
-}
-
-.cta-shape-2 {
-    width: 300px;
-    height: 300px;
-    bottom: -150px;
-    right: -50px;
 }
 
 /* ==========================================
