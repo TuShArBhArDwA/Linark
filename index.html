@@ -22,6 +22,19 @@
 </head>
 
 <body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-content">
+            <div class="preloader-logo">
+                <span class="logo-text">LINAARK</span>
+                <span class="logo-sub">ARCHITECTS</span>
+            </div>
+            <div class="preloader-line-wrap">
+                <div class="preloader-line"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Ambient Background Glow Orbs -->
     <div class="ambient-glows">
         <div class="glow-orb glow-orb-1"></div>
@@ -281,6 +294,15 @@
             </div>
             <div class="services-grid">
                 <div class="service-card" data-aos="fade-up">
+                    <div class="card-animation-wrap">
+                        <svg viewBox="0 0 100 100" class="svg-anim residential-anim">
+                            <path d="M 0,20 L 100,20 M 0,40 L 100,40 M 0,60 L 100,60 M 0,80 L 100,80 M 20,0 L 20,100 M 40,0 L 40,100 M 60,0 L 60,100 M 80,0 L 80,100" stroke="rgba(201, 169, 98, 0.05)" stroke-width="0.5" />
+                            <path d="M20 75 L20 45 L50 20 L80 45 L80 75 Z" class="draw-line main-house" />
+                            <rect x="30" y="50" width="15" height="25" class="draw-line door" />
+                            <rect x="55" y="45" width="15" height="15" class="draw-line window" />
+                            <line x1="20" y1="45" x2="80" y2="45" class="draw-line floor-line" />
+                        </svg>
+                    </div>
                     <div class="service-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <path d="M3 21h18M3 7v14M21 7v14M6 7V4h12v3M12 7v14M8 11h2M8 15h2M14 11h2M14 15h2" />
@@ -289,14 +311,20 @@
                     <h3>Residential Design</h3>
                     <p>Creating dream homes that reflect your lifestyle and personality with innovative spatial
                         solutions.</p>
-                    <a href="#contact" class="service-link">
-                        <span>Learn More</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </a>
                 </div>
                 <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-animation-wrap">
+                        <svg viewBox="0 0 100 100" class="svg-anim commercial-anim">
+                            <path d="M 0,20 L 100,20 M 0,40 L 100,40 M 0,60 L 100,60 M 0,80 L 100,80 M 20,0 L 20,100 M 40,0 L 40,100 M 60,0 L 60,100 M 80,0 L 80,100" stroke="rgba(201, 169, 98, 0.05)" stroke-width="0.5" />
+                            <rect x="25" y="40" width="20" height="40" class="draw-line tower-1" />
+                            <rect x="50" y="25" width="25" height="55" class="draw-line tower-2" />
+                            <circle cx="35" cy="50" r="1.5" class="window-dot d1" />
+                            <circle cx="35" cy="60" r="1.5" class="window-dot d2" />
+                            <circle cx="62" cy="35" r="1.5" class="window-dot d3" />
+                            <circle cx="62" cy="45" r="1.5" class="window-dot d4" />
+                            <circle cx="62" cy="55" r="1.5" class="window-dot d5" />
+                        </svg>
+                    </div>
                     <div class="service-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <rect x="2" y="7" width="20" height="14" rx="2" />
@@ -307,14 +335,24 @@
                     <h3>Commercial Spaces</h3>
                     <p>Designing functional and inspiring workspaces that boost productivity and reflect brand identity.
                     </p>
-                    <a href="#contact" class="service-link">
-                        <span>Learn More</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </a>
                 </div>
                 <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card-animation-wrap">
+                        <svg viewBox="0 0 100 100" class="svg-anim visualization-anim">
+                            <path d="M 10,80 L 50,50 L 90,80 M 30,80 L 50,50 L 70,80" stroke="rgba(201, 169, 98, 0.05)" stroke-width="0.5" />
+                            <g class="rotating-cube-group">
+                                <path d="M 50,30 L 75,42.5 L 75,67.5 L 50,80 L 25,67.5 L 25,42.5 Z" class="draw-line cube-outer" />
+                                <path d="M 50,30 L 50,80 M 50,55 L 75,42.5 M 50,55 L 25,42.5" class="draw-line cube-inner" />
+                                <circle cx="50" cy="30" r="2.5" class="vertex-node" />
+                                <circle cx="75" cy="42.5" r="2.5" class="vertex-node" />
+                                <circle cx="75" cy="67.5" r="2.5" class="vertex-node" />
+                                <circle cx="50" cy="80" r="2.5" class="vertex-node" />
+                                <circle cx="25" cy="67.5" r="2.5" class="vertex-node" />
+                                <circle cx="25" cy="42.5" r="2.5" class="vertex-node" />
+                                <circle cx="50" cy="55" r="2.5" class="vertex-node" />
+                            </g>
+                        </svg>
+                    </div>
                     <div class="service-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -324,14 +362,18 @@
                     <h3>3D Visualization</h3>
                     <p>Photorealistic renders and walkthroughs that bring your architectural vision to life before
                         construction.</p>
-                    <a href="#contact" class="service-link">
-                        <span>Learn More</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </a>
                 </div>
                 <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card-animation-wrap">
+                        <svg viewBox="0 0 100 100" class="svg-anim interior-anim">
+                            <path d="M 0,20 L 100,20 M 0,40 L 100,40 M 0,60 L 100,60 M 0,80 L 100,80 M 20,0 L 20,100 M 40,0 L 40,100 M 60,0 L 60,100 M 80,0 L 80,100" stroke="rgba(201, 169, 98, 0.05)" stroke-width="0.5" />
+                            <path d="M15 75 L85 75" class="draw-line wall-base" />
+                            <path d="M 30,75 L 30,40 M 25,40 L 35,40 L 32,32 L 28,32 Z" class="draw-line lamp" />
+                            <path d="M 45,75 L 45,60 L 80,60 L 80,75" class="draw-line couch-base" />
+                            <path d="M 40,70 L 45,70 L 45,60 L 40,60 Z M 80,70 L 85,70 L 85,60 L 80,60 Z" class="draw-line couch-arms" />
+                            <polygon points="30,40 10,75 50,75" class="lamp-light" />
+                        </svg>
+                    </div>
                     <div class="service-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <path d="M4 4h16v16H4z" />
@@ -341,12 +383,6 @@
                     <h3>Interior Design</h3>
                     <p>Crafting interiors that harmonize aesthetics with functionality for comfortable living spaces.
                     </p>
-                    <a href="#contact" class="service-link">
-                        <span>Learn More</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </a>
                 </div>
             </div>
         </div>
@@ -379,32 +415,6 @@
                         <p>A contemporary residential design featuring clean lines and sustainable materials.</p>
                     </div>
                 </div>
-                <div class="project-card" data-category="commercial">
-                    <div class="project-image">
-                        <img src="images/project-tower.png" alt="Urban Office Tower" loading="lazy">
-                        <div class="project-overlay">
-                            <span class="view-project">View Project</span>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <span class="project-category">Commercial</span>
-                        <h3>Urban Office Tower</h3>
-                        <p>A mixed-use commercial complex designed for the modern workforce.</p>
-                    </div>
-                </div>
-                <div class="project-card" data-category="concept">
-                    <div class="project-image">
-                        <img src="images/project-concept.png" alt="Floating Pavilion" loading="lazy">
-                        <div class="project-overlay">
-                            <span class="view-project">View Project</span>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <span class="project-category">Concept</span>
-                        <h3>Floating Pavilion</h3>
-                        <p>An experimental design exploring organic forms and environmental integration.</p>
-                    </div>
-                </div>
                 <div class="project-card" data-category="residential">
                     <div class="project-image">
                         <img src="images/project-interior.png" alt="Minimalist Retreat" loading="lazy">
@@ -418,31 +428,17 @@
                         <p>A serene residential space emphasizing simplicity and natural light.</p>
                     </div>
                 </div>
-                <div class="project-card" data-category="commercial">
-                    <div class="project-image">
-                        <img src="images/project-urban.png" alt="Creative Hub" loading="lazy">
-                        <div class="project-overlay">
-                            <span class="view-project">View Project</span>
-                        </div>
+
+                <!-- Empty State Placeholder -->
+                <div class="projects-empty-state" style="display: none;">
+                    <div class="empty-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="3" y="3" width="18" height="18" rx="2" />
+                            <path d="M9 17V11 M15 17V7" />
+                        </svg>
                     </div>
-                    <div class="project-info">
-                        <span class="project-category">Commercial</span>
-                        <h3>Creative Hub</h3>
-                        <p>A collaborative workspace designed to inspire innovation and creativity.</p>
-                    </div>
-                </div>
-                <div class="project-card" data-category="concept">
-                    <div class="project-image">
-                        <img src="images/project-concept.png" alt="Vertical Garden Tower" loading="lazy">
-                        <div class="project-overlay">
-                            <span class="view-project">View Project</span>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <span class="project-category">Concept</span>
-                        <h3>Vertical Garden Tower</h3>
-                        <p>A visionary high-rise concept integrating nature with urban living.</p>
-                    </div>
+                    <h3>Projects Coming Soon</h3>
+                    <p>We are currently designing some exciting new projects in this category. Stay tuned!</p>
                 </div>
             </div>
         </div>

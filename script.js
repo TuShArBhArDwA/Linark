@@ -75,6 +75,8 @@ function initCustomCursor() {
     let mouseX = 0, mouseY = 0;
     let cursorX = 0, cursorY = 0;
     let followerX = 0, followerY = 0;
+    let isHoveringMagnetic = false;
+    let magneticTarget = null;
 
     document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
@@ -85,21 +87,43 @@ function initCustomCursor() {
     function animateCursor() {
         cursorX += (mouseX - cursorX) * 0.2;
         cursorY += (mouseY - cursorY) * 0.2;
-        followerX += (mouseX - followerX) * 0.1;
-        followerY += (mouseY - followerY) * 0.1;
-
         cursor.style.left = cursorX + 'px';
         cursor.style.top = cursorY + 'px';
-        follower.style.left = followerX + 'px';
-        follower.style.top = followerY + 'px';
+
+        if (isHoveringMagnetic && magneticTarget) {
+            const rect = magneticTarget.getBoundingClientRect();
+            // Snap to target center
+            const targetX = rect.left + rect.width / 2;
+            const targetY = rect.top + rect.height / 2;
+
+            followerX += (targetX - followerX) * 0.2;
+            followerY += (targetY - followerY) * 0.2;
+
+            follower.style.left = followerX + 'px';
+            follower.style.top = followerY + 'px';
+            // Snap wrapper box size
+            follower.style.width = (rect.width + 12) + 'px';
+            follower.style.height = (rect.height + 12) + 'px';
+            follower.style.borderRadius = getComputedStyle(magneticTarget).borderRadius;
+            follower.style.transform = 'translate(-50%, -50%)';
+        } else {
+            followerX += (mouseX - followerX) * 0.1;
+            followerY += (mouseY - followerY) * 0.1;
+
+            follower.style.left = followerX + 'px';
+            follower.style.top = followerY + 'px';
+            follower.style.width = '';
+            follower.style.height = '';
+            follower.style.borderRadius = '';
+            follower.style.transform = '';
+        }
 
         requestAnimationFrame(animateCursor);
     }
     animateCursor();
 
     // Hover effects
-    const hoverElements = document.querySelectorAll('a, button, .project-card, .service-card, .team-card, .filter-btn');
-
+    const hoverElements = document.querySelectorAll('.project-card, .service-card, .team-card, .filter-btn');
     hoverElements.forEach(el => {
         el.addEventListener('mouseenter', () => {
             cursor.classList.add('hover');
@@ -109,6 +133,24 @@ function initCustomCursor() {
         el.addEventListener('mouseleave', () => {
             cursor.classList.remove('hover');
             follower.classList.remove('hover');
+        });
+    });
+
+    // Magnetic Snapping elements
+    const magneticElements = document.querySelectorAll('.nav-link, button, .cta-btn, .team-phone');
+    magneticElements.forEach(el => {
+        el.addEventListener('mouseenter', (e) => {
+            isHoveringMagnetic = true;
+            magneticTarget = e.currentTarget;
+            follower.classList.add('snapped');
+            cursor.style.opacity = '0';
+        });
+
+        el.addEventListener('mouseleave', () => {
+            isHoveringMagnetic = false;
+            magneticTarget = null;
+            follower.classList.remove('snapped');
+            cursor.style.opacity = '1';
         });
     });
 }
@@ -287,6 +329,7 @@ function initScrollReveal() {
 function initProjectFilter() {
     const filterBtns = document.querySelectorAll('.filter-btn');
     const projectCards = document.querySelectorAll('.project-card');
+    const emptyState = document.querySelector('.projects-empty-state');
 
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -295,11 +338,13 @@ function initProjectFilter() {
             btn.classList.add('active');
 
             const filter = btn.getAttribute('data-filter');
+            let matchCount = 0;
 
             projectCards.forEach(card => {
                 const category = card.getAttribute('data-category');
 
                 if (filter === 'all' || category === filter) {
+                    matchCount++;
                     card.style.display = 'block';
                     setTimeout(() => {
                         card.style.opacity = '1';
@@ -313,6 +358,21 @@ function initProjectFilter() {
                     }, 300);
                 }
             });
+
+            // Handle empty state visibility
+            if (emptyState) {
+                if (matchCount === 0) {
+                    emptyState.style.display = 'flex';
+                    setTimeout(() => {
+                        emptyState.classList.add('show');
+                    }, 10);
+                } else {
+                    emptyState.classList.remove('show');
+                    setTimeout(() => {
+                        emptyState.style.display = 'none';
+                    }, 300);
+                }
+            }
         });
     });
 }
@@ -616,17 +676,19 @@ class TextScramble {
     }
 }
 
-// Apply scramble effect to hero title on load
-const heroTitle = document.querySelector('.hero-title');
-if (heroTitle) {
-    const lines = heroTitle.querySelectorAll('.line');
-    lines.forEach((line, i) => {
-        const originalText = line.innerText;
-        const scrambler = new TextScramble(line);
-        setTimeout(() => {
-            scrambler.setText(originalText);
-        }, 500 + (i * 200));
-    });
+// Apply scramble effect to hero title on preloader completion
+function triggerHeroAnimations() {
+    const heroTitle = document.querySelector('.hero-title');
+    if (heroTitle) {
+        const lines = heroTitle.querySelectorAll('.line');
+        lines.forEach((line, i) => {
+            const originalText = line.innerText;
+            const scrambler = new TextScramble(line);
+            setTimeout(() => {
+                scrambler.setText(originalText);
+            }, i * 200);
+        });
+    }
 }
 
 /* ==========================================
@@ -670,7 +732,18 @@ window.addEventListener('load', () => {
    ========================================== */
 
 window.addEventListener('load', () => {
-    document.body.classList.add('loaded');
+    const preloader = document.querySelector('.preloader');
+    if (preloader) {
+        setTimeout(() => {
+            preloader.classList.add('fade-out');
+            document.body.classList.add('loaded');
+            // Trigger Hero animations
+            triggerHeroAnimations();
+        }, 2200); // Wait for line animation
+    } else {
+        document.body.classList.add('loaded');
+        triggerHeroAnimations();
+    }
 });
 
 /* ==========================================
