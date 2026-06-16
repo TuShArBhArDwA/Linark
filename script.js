@@ -326,6 +326,8 @@ function initContactForm() {
 
     if (!form) return;
 
+    const inputs = form.querySelectorAll('input, textarea');
+
     form.addEventListener('submit', (e) => {
         e.preventDefault();
 
@@ -343,28 +345,60 @@ function initContactForm() {
         `;
         submitBtn.disabled = true;
 
-        // Simulate form submission
-        setTimeout(() => {
-            submitBtn.innerHTML = `
-                <span>Message Sent!</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M20 6L9 17l-5-5"/>
-                </svg>
-            `;
-            submitBtn.style.background = 'linear-gradient(135deg, #4CAF50 0%, #45a049 100%)';
+        // Real form submission to Web3Forms
+        const formData = new FormData(form);
+        formData.append("access_key", "323fe07c-6255-40eb-a00f-3d3cb03b4dd1");
 
-            // Reset form
-            setTimeout(() => {
+        const object = Object.fromEntries(formData);
+        const json = JSON.stringify(object);
+
+        fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: json
+        })
+        .then(async (response) => {
+            const res = await response.json();
+            if (response.status === 200) {
+                // Success state
+                submitBtn.innerHTML = `
+                    <span>Message Sent!</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 6L9 17l-5-5"/>
+                    </svg>
+                `;
+                submitBtn.style.background = 'linear-gradient(135deg, #4CAF50 0%, #45a049 100%)';
                 form.reset();
+                
+                // Clear active floating labels classes
+                inputs.forEach(input => input.classList.remove('has-value'));
+            } else {
+                // Server error state
+                console.error(res);
+                submitBtn.innerHTML = `<span>Error! Try Again</span>`;
+                submitBtn.style.background = 'linear-gradient(135deg, #f44336 0%, #d32f2f 100%)';
+            }
+        })
+        .catch(error => {
+            // Network error state
+            console.error(error);
+            submitBtn.innerHTML = `<span>Error! Try Again</span>`;
+            submitBtn.style.background = 'linear-gradient(135deg, #f44336 0%, #d32f2f 100%)';
+        })
+        .then(() => {
+            // Restore button state after 3 seconds
+            setTimeout(() => {
                 submitBtn.innerHTML = originalText;
                 submitBtn.style.background = '';
                 submitBtn.disabled = false;
             }, 3000);
-        }, 2000);
+        });
     });
 
     // Floating label animation for inputs
-    const inputs = form.querySelectorAll('input, textarea');
     inputs.forEach(input => {
         input.addEventListener('blur', () => {
             if (input.value) {
